@@ -12,9 +12,25 @@
   var currentStep = 1;
   var progressFill = document.getElementById("progressFill");
   var progressText = document.getElementById("progressText");
+  var progressBar = document.querySelector(".intake-progress");
+  var topbar = document.querySelector(".topbar");
   var STORAGE_KEY = "ptIntakeFormV1";
 
   /* ---------------- Step navigation ---------------- */
+  // Scrolls to the progress indicator rather than the very top of the
+  // page, so Next/Previous doesn't re-show the intro hero card every
+  // time — just enough movement to bring the new step into view under
+  // the sticky topbar.
+  function scrollToProgress() {
+    if (!progressBar) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+    var topbarHeight = topbar ? topbar.getBoundingClientRect().height : 0;
+    var target = window.scrollY + progressBar.getBoundingClientRect().top - topbarHeight;
+    window.scrollTo({ top: Math.max(target, 0), behavior: "smooth" });
+  }
+
   function showStep(n) {
     currentStep = Math.min(Math.max(n, 1), totalSteps);
     steps.forEach(function (step) {
@@ -23,7 +39,7 @@
     });
     progressFill.style.width = (currentStep / totalSteps) * 100 + "%";
     progressText.textContent = "Step " + currentStep + " of " + totalSteps;
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    scrollToProgress();
   }
 
   document.querySelectorAll(".step-next").forEach(function (btn) {
