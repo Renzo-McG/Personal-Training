@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Intake</title>
+<meta name="description" content="A few quick questions to help tailor your training and nutrition guide. Nothing is submitted automatically.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="intake.css?v=10">
+</head>
+<body class="no-js">
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">📋</span>
+      <span>Client Intake</span>
+    </div>
+  </div>
+</header>
+
+<main id="main-content">
+  <div class="container">
+
+    <div class="card">
+      <span class="section-kicker">Quick questions</span>
+      <h1 class="intake-title">Let's tailor your plan</h1>
+      <p>This is just to help build you a simple, realistic training and nutrition guide.</p>
+      <p>No judgement, no perfect answers needed. The goal is to make the plan fit your life, not give you a load of rules you won't use.</p>
+      <p class="text-muted intake-time-note"><span aria-hidden="true">⏱️</span> About 2 minutes per step — 6 short steps in total.</p>
+      <p class="text-muted intake-autosave-note">Saved on this device only, as you go. Nothing is sent automatically.</p>
+    </div>
+
+    <div class="intake-progress">
+      <div class="intake-progress-bar">
+        <div class="intake-progress-fill" id="progressFill" style="width:16.6667%"></div>
+      </div>
+      <p class="intake-progress-text" id="progressText">Step 1 of 6</p>
+    </div>
+
+    <form id="intakeForm" novalidate>
+
+      <!-- ================= STEP 1: ABOUT YOU ================= -->
+      <section class="step card is-active" data-step="1" id="step-1" aria-labelledby="step1-heading">
+        <span class="section-kicker">Step 1 of 6</span>
+        <h2 id="step1-heading">About you</h2>
+        <p class="section-intro text-muted">The basics — helps me get a feel for where you're starting from.</p>
+
+        <div class="field">
+          <label for="name"><span class="field-icon" aria-hidden="true">🙋</span>Name <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="name" name="name" autocomplete="name">
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="age"><span class="field-icon" aria-hidden="true">🎂</span>Age <span class="req" aria-hidden="true">*</span></label>
+            <input type="number" id="age" name="age" min="10" max="100" inputmode="numeric">
+          </div>
+          <div class="field">
+            <label for="height"><span class="field-icon" aria-hidden="true">📏</span>Height <span class="req" aria-hidden="true">*</span></label>
+            <input type="number" id="height" name="height" step="any" inputmode="decimal">
+            <p class="field-hint">cm or inches — whatever's easiest</p>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="weight"><span class="field-icon" aria-hidden="true">⚖️</span>Current weight <span class="req" aria-hidden="true">*</span></label>
+          <input type="number" id="weight" name="weight" step="any" inputmode="decimal">
+          <p class="field-hint">kg, lbs or stone — decimals are fine</p>
+        </div>
+
+        <fieldset class="field">
+          <legend><span class="field-icon" aria-hidden="true">🔁</span>Preferred units <span class="req" aria-hidden="true">*</span></legend>
+          <div class="choice-group" data-radio-group="units">
+            <label class="choice-card"><input type="radio" name="units" value="kg / cm" checked><span>kg / cm</span></label>
+            <label class="choice-card"><input type="radio" name="units" value="stone / feet"><span>stone / feet</span></label>
+            <label class="choice-card"><input type="radio" name="units" value="lbs / inches"><span>lbs / inches</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend><span class="field-icon" aria-hidden="true">☀️</span>What best describes your normal day?</legend>
+          <div class="choice-group" data-radio-group="normalDay">
+            <label class="choice-card"><input type="radio" name="normalDay" value="Mostly sitting" checked><span>Mostly sitting</span></label>
+            <label class="choice-card"><input type="radio" name="normalDay" value="Some sitting, some moving"><span>Some sitting, some moving</span></label>
+            <label class="choice-card"><input type="radio" name="normalDay" value="On my feet quite a bit"><span>On my feet quite a bit</span></label>
+            <label class="choice-card"><input type="radio" name="normalDay" value="Very active"><span>Very active</span></label>
+          </div>
+        </fieldset>
+
+        <div class="field">
+          <label for="steps"><span class="field-icon" aria-hidden="true">👟</span>Rough daily steps, if known</label>
+          <select id="steps" name="steps">
+            <option value="Under 3,000" selected>Under 3,000</option>
+            <option value="3,000–5,000">3,000–5,000</option>
+            <option value="5,000–7,000">5,000–7,000</option>
+            <option value="7,000–10,000">7,000–10,000</option>
+            <option value="10,000+">10,000+</option>
+            <option value="Not sure">Not sure</option>
+          </select>
+        </div>
+
+        <fieldset class="field">
+          <legend><span class="field-icon" aria-hidden="true">🏋️</span>How often do you currently exercise?</legend>
+          <div class="choice-group" data-radio-group="exerciseFreq">
+            <label class="choice-card"><input type="radio" name="exerciseFreq" value="Not currently" checked><span>Not currently</span></label>
+            <label class="choice-card"><input type="radio" name="exerciseFreq" value="Occasionally"><span>Occasionally</span></label>
+            <label class="choice-card"><input type="radio" name="exerciseFreq" value="1–2 times per week"><span>1–2 times per week</span></label>
+            <label class="choice-card"><input type="radio" name="exerciseFreq" value="3–4 times per week"><span>3–4 times per week</span></label>
+            <label class="choice-card"><input type="radio" name="exerciseFreq" value="5+ times per week"><span>5+ times per week</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend><span class="field-icon" aria-hidden="true">🏃</span>What do you currently do? Pick up to 3</legend>
+          <div class="choice-group" data-checkbox-group="exerciseTypes" data-max="3">
+            <label class="choice-card"><input type="checkbox" name="exerciseTypes" value="Walking"><span>Walking</span></label>
+            <label class="choice-card"><input type="checkbox" name="exerciseTypes" value="Gym weights"><span>Gym weights</span></label>
+            <label class="choice-card"><input type="checkbox" name="exerciseTypes" value="Classes"><span>Classes</span></label>
+            <label class="choice-card"><input type="checkbox" name="exerciseTypes" value="Home workouts"><span>Home workouts</span></label>
+            <label class="choice-card"><input type="checkbox" name="exerciseTypes" value="Running"><span>Running</span></label>
+            <label class="choice-card"><input type="checkbox" name="exerciseTypes" value="Cycling"><span>Cycling</span></label>
+            <label class="choice-card"><input type="checkbox" name="exerciseTypes" value="Swimming"><span>Swimming</span></label>
+            <label class="choice-card"><input type="checkbox" name="exerciseTypes" value="Yoga/Pilates"><span>Yoga/Pilates</span></label>
+            <label class="choice-card"><input type="checkbox" name="exerciseTypes" value="Sports"><span>Sports</span></label>
+            <label class="choice-card"><input type="checkbox" name="exerciseTypes" value="Nothing currently"><span>Nothing currently</span></label>
+            <label class="choice-card"><input type="checkbox" name="exerciseTypes" value="Other" data-reveals="exerciseTypesOtherWrap"><span>Other</span></label>
+          </div>
+          <p class="field-note" data-max-note="exerciseTypes">You can pick up to 3.</p>
+
+          <div class="field reveal-field" id="exerciseTypesOtherWrap" hidden>
+            <label for="exerciseTypesOther">What kind of activity?</label>
+            <input type="text" id="exerciseTypesOther" name="exerciseTypesOther" placeholder="e.g. climbing, martial arts, dance...">
+          </div>
+        </fieldset>
+
+        <div class="field slider-row">
+          <label for="confidence"><span class="field-icon" aria-hidden="true">💪</span>Current fitness confidence</label>
+          <input type="range" id="confidence" name="confidence" min="1" max="10" value="5">
+          <div class="slider-scale"><span>1 = not confident</span><span>10 = very confident</span></div>
+          <output class="slider-value" id="confidenceValue" for="confidence">5 / 10</output>
+        </div>
+
+        <div class="step-nav step-nav-single">
+          <button type="button" class="btn btn-primary step-next">Next</button>
+        </div>
+      </section>
+
+      <!-- ================= STEP 2: GOALS ================= -->
+      <section class="step card" data-step="2" id="step-2" aria-labelledby="step2-heading">
+        <span class="section-kicker">Step 2 of 6</span>
+        <h2 id="step2-heading">Goals</h2>
+        <p class="section-intro text-muted">What matters most to you right now — no need to overthink it.</p>
+
+        <fieldset class="field priority-group" data-priority-group="goals">
+          <legend><span class="field-icon" aria-hidden="true">🎯</span>Top 3 goals — pick and rank them</legend>
+
+          <div class="field">
+            <label for="goalP1">Priority 1 <span class="req" aria-hidden="true">*</span></label>
+            <select id="goalP1" name="goalP1" data-priority="goals">
+              <option value=""></option>
+              <option>Lose body fat</option>
+              <option>Feel fitter</option>
+              <option>Get stronger</option>
+              <option>Feel more toned</option>
+              <option>Improve confidence</option>
+              <option>Build a routine</option>
+              <option>Improve energy</option>
+              <option>Feel better in clothes</option>
+              <option>Prepare for a holiday/event</option>
+              <option>Improve general health</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="goalP2">Priority 2</label>
+            <select id="goalP2" name="goalP2" data-priority="goals">
+              <option value=""></option>
+              <option>Lose body fat</option>
+              <option>Feel fitter</option>
+              <option>Get stronger</option>
+              <option>Feel more toned</option>
+              <option>Improve confidence</option>
+              <option>Build a routine</option>
+              <option>Improve energy</option>
+              <option>Feel better in clothes</option>
+              <option>Prepare for a holiday/event</option>
+              <option>Improve general health</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="goalP3">Priority 3</label>
+            <select id="goalP3" name="goalP3" data-priority="goals">
+              <option value=""></option>
+              <option>Lose body fat</option>
+              <option>Feel fitter</option>
+              <option>Get stronger</option>
+              <option>Feel more toned</option>
+              <option>Improve confidence</option>
+              <option>Build a routine</option>
+              <option>Improve energy</option>
+              <option>Feel better in clothes</option>
+              <option>Prepare for a holiday/event</option>
+              <option>Improve general health</option>
+            </select>
+          </div>
+          <p class="field-warning" data-priority-warning="goals" hidden>You've picked the same goal twice — totally fine, but you could pick a different one if you want.</p>
+        </fieldset>
+
+        <div class="field">
+          <label for="progressAnswer"><span class="field-icon" aria-hidden="true">🌟</span>In 8–12 weeks, what would make you think "this is working"?</label>
+          <input type="text" id="progressAnswer" name="progressAnswer" placeholder="e.g. Clothes fitting better">
+        </div>
+
+        <div class="field slider-row">
+          <label for="motivation"><span class="field-icon" aria-hidden="true">🔥</span>How motivated do you feel right now?</label>
+          <input type="range" id="motivation" name="motivation" min="1" max="10" value="5">
+          <div class="slider-scale"><span>1 = low</span><span>10 = high</span></div>
+          <output class="slider-value" id="motivationValue" for="motivation">5 / 10</output>
+        </div>
+
+        <div class="field slider-row">
+          <label for="simplicity"><span class="field-icon" aria-hidden="true">🎛️</span>How simple does this need to be?</label>
+          <input type="range" id="simplicity" name="simplicity" min="1" max="10" value="5">
+          <div class="slider-scale"><span>1 = I like detail</span><span>10 = keep it very simple</span></div>
+          <output class="slider-value" id="simplicityValue" for="simplicity">5 / 10</output>
+        </div>
+
+        <div class="step-nav">
+          <button type="button" class="btn btn-secondary step-prev">Previous</button>
+          <button type="button" class="btn btn-primary step-next">Next</button>
+        </div>
+      </section>
+
+      <!-- ================= STEP 3: TRAINING ================= -->
+      <section class="step card" data-step="3" id="step-3" aria-labelledby="step3-heading">
+        <span class="section-kicker">Step 3 of 6</span>
+        <h2 id="step3-heading">Training</h2>
+        <p class="section-intro text-muted">How and where training will actually happen.</p>
+
+        <fieldset class="field">
+          <legend><span class="field-icon" aria-hidden="true">📍</span>Where would you realistically train? <span class="req" aria-hidden="true">*</span></legend>
+          <div class="choice-group" data-radio-group="trainingLocation">
+            <label class="choice-card"><input type="radio" name="trainingLocation" value="Gym" checked><span>Gym</span></label>
+            <label class="choice-card"><input type="radio" name="trainingLocation" value="Home"><span>Home</span></label>
+            <label class="choice-card"><input type="radio" name="trainingLocation" value="Mix of gym and home"><span>Mix of gym and home</span></label>
+            <label class="choice-card"><input type="radio" name="trainingLocation" value="Mostly walking/cardio"><span>Mostly walking/cardio</span></label>
+            <label class="choice-card"><input type="radio" name="trainingLocation" value="Not sure yet"><span>Not sure yet</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend><span class="field-icon" aria-hidden="true">📅</span>How many days per week feels realistic? <span class="req" aria-hidden="true">*</span></legend>
+          <div class="choice-group" data-radio-group="trainingDays">
+            <label class="choice-card"><input type="radio" name="trainingDays" value="2 days" checked><span>2 days</span></label>
+            <label class="choice-card"><input type="radio" name="trainingDays" value="3 days"><span>3 days</span></label>
+            <label class="choice-card"><input type="radio" name="trainingDays" value="4 days"><span>4 days</span></label>
+            <label class="choice-card"><input type="radio" name="trainingDays" value="5 days"><span>5 days</span></label>
+            <label class="choice-card"><input type="radio" name="trainingDays" value="Not sure"><span>Not sure</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend><span class="field-icon" aria-hidden="true">⏱️</span>How long should each session be?</legend>
+          <div class="choice-group" data-radio-group="sessionLength">
+            <label class="choice-card"><input type="radio" name="sessionLength" value="20–30 minutes" checked><span>20–30 minutes</span></label>
+            <label class="choice-card"><input type="radio" name="sessionLength" value="30–45 minutes"><span>30–45 minutes</span></label>
+            <label class="choice-card"><input type="radio" name="sessionLength" value="45–60 minutes"><span>45–60 minutes</span></label>
+            <label class="choice-card"><input type="radio" name="sessionLength" value="I'm flexible"><span>I'm flexible</span></label>
+          </div>
+        </fieldset>
+
+        <div class="field">
+          <label for="trainingStyle"><span class="field-icon" aria-hidden="true">🏋️</span>What training style sounds best?</label>
+          <select id="trainingStyle" name="trainingStyle">
+            <option selected>Simple gym machines</option>
+            <option>Dumbbells/free weights</option>
+            <option>Home workouts</option>
+            <option>Classes</option>
+            <option>Walking/cardio focused</option>
+            <option>A mix</option>
+            <option>Just tell me what to do</option>
+          </select>
+        </div>
+
+        <fieldset class="field">
+          <legend><span class="field-icon" aria-hidden="true">🎯</span>Any specific areas you want to focus on?</legend>
+          <div class="choice-group" data-checkbox-group="focusAreas">
+            <label class="choice-card"><input type="checkbox" name="focusAreas" value="Chest"><span>Chest</span></label>
+            <label class="choice-card"><input type="checkbox" name="focusAreas" value="Back"><span>Back</span></label>
+            <label class="choice-card"><input type="checkbox" name="focusAreas" value="Shoulders"><span>Shoulders</span></label>
+            <label class="choice-card"><input type="checkbox" name="focusAreas" value="Arms"><span>Arms</span></label>
+            <label class="choice-card"><input type="checkbox" name="focusAreas" value="Legs"><span>Legs</span></label>
+            <label class="choice-card"><input type="checkbox" name="focusAreas" value="Glutes"><span>Glutes</span></label>
+            <label class="choice-card"><input type="checkbox" name="focusAreas" value="Core/Abs"><span>Core/Abs</span></label>
+          </div>
+          <p class="field-hint">Optional — pick as many as apply. E.g. if you want a major upper body focus, pick chest, back, shoulders and arms.</p>
+        </fieldset>
+
+        <div class="field slider-row">
+          <label for="upperLowerBias"><span class="field-icon" aria-hidden="true">⚖️</span>Should the plan lean more upper or lower body?</label>
+          <input type="range" id="upperLowerBias" name="upperLowerBias" min="1" max="10" value="5">
+          <div class="slider-scale"><span>1 = all lower body</span><span>10 = all upper body</span></div>
+          <output class="slider-value" id="upperLowerBiasValue" for="upperLowerBias">5 / 10</output>
+        </div>
+
+        <div class="field">
+          <label for="exercisesAvoid"><span class="field-icon" aria-hidden="true">🚫</span>Any exercises you already know you dislike or want to avoid?</label>
+          <input type="text" id="exercisesAvoid" name="exercisesAvoid">
+        </div>
+
+        <div class="field">
+          <label for="exercisesEnjoyed"><span class="field-icon" aria-hidden="true">❤️</span>Any exercises you enjoy or feel comfortable with?</label>
+          <input type="text" id="exercisesEnjoyed" name="exercisesEnjoyed">
+        </div>
+
+        <div class="field">
+          <label for="painNote"><span class="field-icon" aria-hidden="true">🩹</span>Any pain, injury, or movement issue I should work around?</label>
+          <input type="text" id="painNote" name="painNote">
+        </div>
+
+        <div class="step-nav">
+          <button type="button" class="btn btn-secondary step-prev">Previous</button>
+          <button type="button" class="btn btn-primary step-next">Next</button>
+        </div>
+      </section>
+
+      <!-- ================= STEP 4: FOOD ================= -->
+      <section class="step card" data-step="4" id="step-4" aria-labelledby="step4-heading">
+        <span class="section-kicker">Step 4 of 6</span>
+        <h2 id="step4-heading">Food</h2>
+        <p class="section-intro text-muted">How you'd like to approach eating — no wrong answers here.</p>
+
+        <fieldset class="field">
+          <legend><span class="field-icon" aria-hidden="true">🍽️</span>How do you want to approach food? <span class="req" aria-hidden="true">*</span></legend>
+          <div class="choice-group" data-radio-group="foodApproach">
+            <label class="choice-card"><input type="radio" name="foodApproach" value="No calorie counting" checked><span>No calorie counting</span></label>
+            <label class="choice-card"><input type="radio" name="foodApproach" value="Simple portions / plate method"><span>Simple portions / plate method</span></label>
+            <label class="choice-card"><input type="radio" name="foodApproach" value="Light tracking for awareness"><span>Light tracking for awareness</span></label>
+            <label class="choice-card"><input type="radio" name="foodApproach" value="I'm open to calorie targets if helpful"><span>I'm open to calorie targets if helpful</span></label>
+            <label class="choice-card"><input type="radio" name="foodApproach" value="Not sure"><span>Not sure</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field priority-group" data-priority-group="food">
+          <legend><span class="field-icon" aria-hidden="true">🍩</span>Biggest food challenges right now — pick and rank up to 3</legend>
+
+          <div class="field">
+            <label for="foodP1">Priority 1 <span class="req" aria-hidden="true">*</span></label>
+            <select id="foodP1" name="foodP1" data-priority="food">
+              <option value=""></option>
+              <option>Snacking</option>
+              <option>Sweet foods</option>
+              <option>Takeaways</option>
+              <option>Alcohol</option>
+              <option>Sugary drinks</option>
+              <option>Portion sizes</option>
+              <option>Evening eating</option>
+              <option>Not enough protein</option>
+              <option>Busy schedule</option>
+              <option>Family meals</option>
+              <option>Eating out</option>
+              <option>Not knowing what to cook</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="foodP2">Priority 2</label>
+            <select id="foodP2" name="foodP2" data-priority="food">
+              <option value=""></option>
+              <option>Snacking</option>
+              <option>Sweet foods</option>
+              <option>Takeaways</option>
+              <option>Alcohol</option>
+              <option>Sugary drinks</option>
+              <option>Portion sizes</option>
+              <option>Evening eating</option>
+              <option>Not enough protein</option>
+              <option>Busy schedule</option>
+              <option>Family meals</option>
+              <option>Eating out</option>
+              <option>Not knowing what to cook</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="foodP3">Priority 3</label>
+            <select id="foodP3" name="foodP3" data-priority="food">
+              <option value=""></option>
+              <option>Snacking</option>
+              <option>Sweet foods</option>
+              <option>Takeaways</option>
+              <option>Alcohol</option>
+              <option>Sugary drinks</option>
+              <option>Portion sizes</option>
+              <option>Evening eating</option>
+              <option>Not enough protein</option>
+              <option>Busy schedule</option>
+              <option>Family meals</option>
+              <option>Eating out</option>
+              <option>Not knowing what to cook</option>
+            </select>
+          </div>
+          <p class="field-warning" data-priority-warning="food" hidden>You've picked the same challenge twice — totally fine, but you could pick a different one if you want.</p>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend><span class="field-icon" aria-hidden="true">🍴</span>How many meals do you usually eat per day?</legend>
+          <div class="choice-group" data-radio-group="mealsPerDay">
+            <label class="choice-card"><input type="radio" name="mealsPerDay" value="2" checked><span>2</span></label>
+            <label class="choice-card"><input type="radio" name="mealsPerDay" value="3"><span>3</span></label>
+            <label class="choice-card"><input type="radio" name="mealsPerDay" value="4+"><span>4+</span></label>
+            <label class="choice-card"><input type="radio" name="mealsPerDay" value="It varies a lot"><span>It varies a lot</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend><span class="field-icon" aria-hidden="true">🌅</span>Breakfast pattern</legend>
+          <div class="choice-group" data-radio-group="breakfastPattern">
+            <label class="choice-card"><input type="radio" name="breakfastPattern" value="I usually eat breakfast" checked><span>I usually eat breakfast</span></label>
+            <label class="choice-card"><input type="radio" name="breakfastPattern" value="I skip breakfast"><span>I skip breakfast</span></label>
+            <label class="choice-card"><input type="radio" name="breakfastPattern" value="Usually just coffee"><span>Usually just coffee</span></label>
+            <label class="choice-card"><input type="radio" name="breakfastPattern" value="It varies"><span>It varies</span></label>
+          </div>
+        </fieldset>
+
+        <div class="field">
+          <label for="foodsDisliked"><span class="field-icon" aria-hidden="true">🚫</span>Any foods you dislike or won't eat?</label>
+          <input type="text" id="foodsDisliked" name="foodsDisliked">
+        </div>
+
+        <div class="field">
+          <label for="foodsKeep"><span class="field-icon" aria-hidden="true">❤️</span>Any foods you love and want to keep in the plan?</label>
+          <input type="text" id="foodsKeep" name="foodsKeep">
+        </div>
+
+        <fieldset class="field">
+          <legend><span class="field-icon" aria-hidden="true">🥗</span>Any dietary requirements?</legend>
+          <div class="choice-group" data-checkbox-group="dietary">
+            <label class="choice-card"><input type="checkbox" name="dietary" value="None"><span>None</span></label>
+            <label class="choice-card"><input type="checkbox" name="dietary" value="Vegetarian"><span>Vegetarian</span></label>
+            <label class="choice-card"><input type="checkbox" name="dietary" value="Vegan"><span>Vegan</span></label>
+            <label class="choice-card"><input type="checkbox" name="dietary" value="Dairy-free"><span>Dairy-free</span></label>
+            <label class="choice-card"><input type="checkbox" name="dietary" value="Gluten-free"><span>Gluten-free</span></label>
+            <label class="choice-card"><input type="checkbox" name="dietary" value="Allergies"><span>Allergies</span></label>
+            <label class="choice-card"><input type="checkbox" name="dietary" value="Other" data-reveals="dietaryOtherWrap"><span>Other</span></label>
+          </div>
+
+          <div class="field reveal-field" id="dietaryOtherWrap" hidden>
+            <label for="dietaryOther">What kind of dietary requirement?</label>
+            <input type="text" id="dietaryOther" name="dietaryOther" placeholder="e.g. low FODMAP, keto...">
+          </div>
+        </fieldset>
+
+        <div class="step-nav">
+          <button type="button" class="btn btn-secondary step-prev">Previous</button>
+          <button type="button" class="btn btn-primary step-next">Next</button>
+        </div>
+      </section>
+
+      <!-- ================= STEP 5: LIFESTYLE ================= -->
+      <section class="step card" data-step="5" id="step-5" aria-labelledby="step5-heading">
+        <span class="section-kicker">Step 5 of 6</span>
+        <h2 id="step5-heading">Lifestyle</h2>
+        <p class="section-intro text-muted">The stuff around the plan that affects whether it actually happens.</p>
+
+        <fieldset class="field priority-group" data-priority-group="barriers">
+          <legend><span class="field-icon" aria-hidden="true">🚧</span>Biggest barriers to consistency — pick and rank up to 3</legend>
+
+          <div class="field">
+            <label for="barrierP1">Priority 1 <span class="req" aria-hidden="true">*</span></label>
+            <select id="barrierP1" name="barrierP1" data-priority="barriers">
+              <option value=""></option>
+              <option>Time</option>
+              <option>Motivation</option>
+              <option>Tiredness</option>
+              <option>Confidence</option>
+              <option>Family schedule</option>
+              <option>Work schedule</option>
+              <option>Not knowing what to do</option>
+              <option>Food cravings</option>
+              <option>Weekends</option>
+              <option>Stress</option>
+              <option>Pain/injury</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="barrierP2">Priority 2</label>
+            <select id="barrierP2" name="barrierP2" data-priority="barriers">
+              <option value=""></option>
+              <option>Time</option>
+              <option>Motivation</option>
+              <option>Tiredness</option>
+              <option>Confidence</option>
+              <option>Family schedule</option>
+              <option>Work schedule</option>
+              <option>Not knowing what to do</option>
+              <option>Food cravings</option>
+              <option>Weekends</option>
+              <option>Stress</option>
+              <option>Pain/injury</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="barrierP3">Priority 3</label>
+            <select id="barrierP3" name="barrierP3" data-priority="barriers">
+              <option value=""></option>
+              <option>Time</option>
+              <option>Motivation</option>
+              <option>Tiredness</option>
+              <option>Confidence</option>
+              <option>Family schedule</option>
+              <option>Work schedule</option>
+              <option>Not knowing what to do</option>
+              <option>Food cravings</option>
+              <option>Weekends</option>
+              <option>Stress</option>
+              <option>Pain/injury</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <p class="field-warning" data-priority-warning="barriers" hidden>You've picked the same barrier twice — totally fine, but you could pick a different one if you want.</p>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend><span class="field-icon" aria-hidden="true">😴</span>Average sleep</legend>
+          <div class="choice-group" data-radio-group="sleep">
+            <label class="choice-card"><input type="radio" name="sleep" value="Under 5 hours" checked><span>Under 5 hours</span></label>
+            <label class="choice-card"><input type="radio" name="sleep" value="5–6 hours"><span>5–6 hours</span></label>
+            <label class="choice-card"><input type="radio" name="sleep" value="6–7 hours"><span>6–7 hours</span></label>
+            <label class="choice-card"><input type="radio" name="sleep" value="7–8 hours"><span>7–8 hours</span></label>
+            <label class="choice-card"><input type="radio" name="sleep" value="8+ hours"><span>8+ hours</span></label>
+          </div>
+        </fieldset>
+
+        <div class="field slider-row">
+          <label for="energy"><span class="field-icon" aria-hidden="true">⚡</span>Energy most days</label>
+          <input type="range" id="energy" name="energy" min="1" max="10" value="5">
+          <div class="slider-scale"><span>1 = low</span><span>10 = high</span></div>
+          <output class="slider-value" id="energyValue" for="energy">5 / 10</output>
+        </div>
+
+        <div class="field slider-row">
+          <label for="stress"><span class="field-icon" aria-hidden="true">🧘</span>Stress right now</label>
+          <input type="range" id="stress" name="stress" min="1" max="10" value="5">
+          <div class="slider-scale"><span>1 = low</span><span>10 = high</span></div>
+          <output class="slider-value" id="stressValue" for="stress">5 / 10</output>
+        </div>
+
+        <div class="step-nav">
+          <button type="button" class="btn btn-secondary step-prev">Previous</button>
+          <button type="button" class="btn btn-primary step-next">Next</button>
+        </div>
+      </section>
+
+      <!-- ================= STEP 6: PREFERENCES & SUMMARY ================= -->
+      <section class="step card" data-step="6" id="step-6" aria-labelledby="step6-heading">
+        <span class="section-kicker">Step 6 of 6</span>
+        <h2 id="step6-heading">Preferences &amp; summary</h2>
+        <p class="section-intro text-muted">Last few questions, then you're done.</p>
+
+        <fieldset class="field">
+          <legend><span class="field-icon" aria-hidden="true">🧭</span>What kind of plan would feel best?</legend>
+          <div class="choice-group" data-radio-group="planStyle">
+            <label class="choice-card"><input type="radio" name="planStyle" value="Very simple: just tell me what to do" checked><span>Very simple: just tell me what to do</span></label>
+            <label class="choice-card"><input type="radio" name="planStyle" value="Simple plan with a little explanation"><span>Simple plan with a little explanation</span></label>
+            <label class="choice-card"><input type="radio" name="planStyle" value="I like understanding the &quot;why&quot;"><span>I like understanding the "why"</span></label>
+            <label class="choice-card"><input type="radio" name="planStyle" value="Give me more detail and options"><span>Give me more detail and options</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend><span class="field-icon" aria-hidden="true">🔑</span>What would make this plan easiest to stick to? Pick up to 3</legend>
+          <div class="choice-group" data-checkbox-group="stickTo" data-max="3">
+            <label class="choice-card"><input type="checkbox" name="stickTo" value="Short workouts"><span>Short workouts</span></label>
+            <label class="choice-card"><input type="checkbox" name="stickTo" value="Clear weekly schedule"><span>Clear weekly schedule</span></label>
+            <label class="choice-card"><input type="checkbox" name="stickTo" value="Simple food rules"><span>Simple food rules</span></label>
+            <label class="choice-card"><input type="checkbox" name="stickTo" value="Meal ideas"><span>Meal ideas</span></label>
+            <label class="choice-card"><input type="checkbox" name="stickTo" value="Step targets"><span>Step targets</span></label>
+            <label class="choice-card"><input type="checkbox" name="stickTo" value="Gym confidence tips"><span>Gym confidence tips</span></label>
+            <label class="choice-card"><input type="checkbox" name="stickTo" value="Beginner-friendly explanations"><span>Beginner-friendly explanations</span></label>
+            <label class="choice-card"><input type="checkbox" name="stickTo" value="Less tracking"><span>Less tracking</span></label>
+            <label class="choice-card"><input type="checkbox" name="stickTo" value="Progress milestones"><span>Progress milestones</span></label>
+            <label class="choice-card"><input type="checkbox" name="stickTo" value="Troubleshooting if I fall off"><span>Troubleshooting if I fall off</span></label>
+          </div>
+          <p class="field-note" data-max-note="stickTo">You can pick up to 3.</p>
+        </fieldset>
+
+        <div class="field">
+          <label for="worries"><span class="field-icon" aria-hidden="true">💬</span>Anything you're worried about or want me to know?</label>
+          <textarea id="worries" name="worries" rows="3"></textarea>
+        </div>
+
+        <div class="note tip">
+          <span class="note-icon" aria-hidden="true">🔒</span>
+          <p><span class="note-strong">Privacy note:</span> your answers are not automatically submitted anywhere. When you tap "Copy Summary", you can send the summary back manually.</p>
+        </div>
+
+        <div class="step-nav">
+          <button type="button" class="btn btn-secondary step-prev">Previous</button>
+          <button type="button" class="btn btn-primary" id="generateBtn">Generate Summary</button>
+        </div>
+
+        <div id="summaryWrap" class="summary-wrap" hidden>
+          <p class="field-warning" id="missingWarning" hidden>A few useful answers are missing. You can still generate the summary, but the plan may be less tailored.</p>
+
+          <label for="summaryOutput" class="summary-label">Your summary — select all, or use the button below</label>
+          <textarea id="summaryOutput" class="summary-box" readonly rows="18"></textarea>
+
+          <div class="summary-actions">
+            <button type="button" class="btn btn-primary" id="copyBtn">Copy Summary</button>
+            <button type="button" class="btn btn-secondary" id="downloadBtn">Download as .txt</button>
+            <button type="button" class="btn btn-secondary" id="clearBtn">Clear Form</button>
+          </div>
+        </div>
+      </section>
+
+    </form>
+  </div>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="intake.js?v=6"></script>
+</body>
+</html>

@@ -1,0 +1,491 @@
+/* ==========================================================================
+   intake.css — extra styles for the Client Intake form only.
+   Reuses design tokens and components from ../styles.css
+   (cards, buttons, section-kicker, note/tip, etc). Do not duplicate
+   those here — this file only adds what the intake form needs.
+   ========================================================================== */
+
+#main-content > .container > .card:first-child {
+  margin-top: 24px;
+}
+
+/* The shared body rule reserves space at the bottom for index.html's
+   fixed bottom nav (~88px). This form has no bottom nav, so that space
+   is just dead air — trim it back to normal breathing room. */
+body {
+  padding-bottom: 24px;
+}
+
+.intake-title {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+.intake-autosave-note {
+  margin-bottom: 0;
+  font-size: 0.85rem;
+}
+
+.intake-time-note {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* ---------- Progress indicator ---------- */
+.intake-progress {
+  margin: 18px 0 24px;
+}
+
+.intake-progress-bar {
+  height: 8px;
+  background: var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.intake-progress-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 999px;
+  transition: width 0.25s ease;
+}
+
+.intake-progress-text {
+  margin: 8px 0 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+/* ---------- Steps ---------- */
+.step {
+  display: none;
+}
+
+.step.is-active {
+  display: block;
+}
+
+.step-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.step-nav .btn {
+  flex: 1;
+}
+
+.step-nav span {
+  flex: 1;
+}
+
+/* Step 1 has no Previous button, so there's no placeholder to balance —
+   Next should take the full row width on mobile, not half of it. */
+.step-nav-single .btn {
+  width: 100%;
+}
+
+/* ---------- Form fields ---------- */
+.field {
+  margin-bottom: 20px;
+}
+
+.field:last-child {
+  margin-bottom: 0;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.field-row .field {
+  margin-bottom: 0;
+}
+
+/* Question headers (field labels / fieldset legends): bigger and paired
+   with a small icon so each question is easier to scan at a glance.
+   Uses a direct-child combinator (.field > label) so this does NOT also
+   catch the answer options: those are <label class="choice-card">
+   elements nested inside .choice-group, which sits a level deeper
+   inside the same .field/fieldset — without the ">" this selector would
+   match them too and silently override their font-size, since it would
+   be more specific than the .choice-card rule. */
+.field > label,
+fieldset.field > legend {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 1.08rem;
+  font-weight: 800;
+  line-height: 1.3;
+  margin-bottom: 10px;
+  padding: 0;
+}
+
+.field-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+fieldset.field {
+  border: none;
+  padding: 0;
+  margin: 0 0 20px;
+}
+
+fieldset.field:last-child {
+  margin-bottom: 0;
+}
+
+.req {
+  color: #b5560f;
+}
+
+.field-hint {
+  margin: 6px 0 0;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.field-note {
+  margin: 8px 0 0;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.field-warning {
+  margin: 8px 0 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #8a5a06;
+  background: var(--warning-soft);
+  border: 1px solid #fbdca6;
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+}
+
+input[type="text"],
+input[type="number"],
+select,
+textarea {
+  width: 100%;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  min-height: 48px;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 72px;
+}
+
+input[type="text"]:focus-visible,
+input[type="number"]:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--accent-dark);
+  outline-offset: 1px;
+  border-color: var(--accent-dark);
+}
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath fill='%23667085' d='M1 1l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+}
+
+/* ---------- Choice cards (radio groups) & choice chips (checkbox groups) ----------
+   No radio dot / checkbox glyph — selection is shown purely by the card's own
+   state change (border, fill, text weight/colour). This sidesteps native
+   radio/checkbox rendering entirely, which varies enough across browsers
+   and operating systems that trying to align a tiny native or hand-drawn
+   indicator next to text was never going to look consistent.
+   Mobile: one option per row (stacked), so every row reads the same way —
+   no ragged 2-column wrapping. From 480px up, options lay out in a
+   centred 2-column row — flexbox rather than grid, because grid locks
+   every row to the same fixed column tracks, so an odd leftover item
+   (e.g. 3 options in a 2-column layout) would get stranded in column 1
+   instead of centring on its own row. */
+.choice-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+@media (min-width: 480px) {
+  .choice-group {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+.choice-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  background: var(--bg);
+  border: 2px solid transparent;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 1px 2px rgba(31, 41, 51, 0.04), 0 4px 10px rgba(31, 41, 51, 0.05);
+  padding: 12px 15px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: left;
+  cursor: pointer;
+  min-height: 44px;
+  box-sizing: border-box;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease, background-color 0.15s ease, transform 0.1s ease;
+}
+
+@media (min-width: 480px) {
+  .choice-card {
+    flex: 0 1 calc(50% - 4px);
+  }
+}
+
+.choice-card:hover {
+  border-color: #d7d2c4;
+}
+
+.choice-card.is-selected:hover {
+  border-color: var(--accent-dark);
+}
+
+.choice-card:active {
+  transform: scale(0.98);
+}
+
+/* The real input stays in the DOM for accessibility (keyboard, screen
+   readers, focus) but is visually invisible — the label itself is the
+   entire clickable/tappable control and shows selection via its own
+   background/border, so no separate glyph is needed. */
+.choice-card input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.choice-card > span {
+  display: block;
+  width: 100%;
+  text-align: left;
+}
+
+.choice-card:has(input:focus-visible) {
+  outline: 3px solid var(--accent-dark);
+  outline-offset: 1px;
+}
+
+.choice-card.is-selected {
+  border-color: var(--accent-dark);
+  background: var(--accent-soft);
+  color: #16523f;
+  box-shadow: 0 2px 4px rgba(63, 158, 128, 0.12), 0 6px 14px rgba(63, 158, 128, 0.18);
+}
+
+.choice-card.is-disabled {
+  opacity: 0.45;
+  box-shadow: none;
+}
+
+/* Checkbox groups ("pick up to 3" style questions) read as chips —
+   pill-shaped and visually distinct from the single-choice radio cards. */
+.choice-group:has(input[type="checkbox"]) .choice-card {
+  border-radius: 999px;
+}
+
+/* ---------- Priority dropdown groups ---------- */
+.priority-group .field {
+  margin-bottom: 12px;
+}
+
+/* ---------- Sliders ----------
+   Custom-drawn thick track (native range tracks default to a thin
+   ~4-6px line regardless of the input's own box height). Reads a
+   --fill custom property (kept in sync by updateSlider() in intake.js)
+   to colour the filled portion, so the look is identical across
+   browsers instead of relying on native accent-color fill behaviour. */
+.slider-row input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 14px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--accent-dark) var(--fill, 50%), var(--border) var(--fill, 50%));
+  cursor: pointer;
+  margin: 10px 0;
+}
+
+.slider-row input[type="range"]::-webkit-slider-runnable-track {
+  height: 14px;
+  border-radius: 999px;
+  background: transparent;
+}
+
+.slider-row input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent-dark);
+  border: 3px solid #fff;
+  box-shadow: 0 1px 4px rgba(31, 41, 51, 0.3);
+  cursor: pointer;
+  margin-top: -7px;
+}
+
+.slider-row input[type="range"]::-moz-range-track {
+  height: 14px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--accent-dark) var(--fill, 50%), var(--border) var(--fill, 50%));
+}
+
+.slider-row input[type="range"]::-moz-range-thumb {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent-dark);
+  border: 3px solid #fff;
+  box-shadow: 0 1px 4px rgba(31, 41, 51, 0.3);
+  cursor: pointer;
+}
+
+.slider-row input[type="range"]:focus-visible {
+  outline: 3px solid var(--accent-dark);
+  outline-offset: 3px;
+  border-radius: 999px;
+}
+
+.slider-scale {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.slider-value {
+  display: inline-block;
+  margin-top: 8px;
+  background: var(--accent-soft);
+  color: var(--accent-dark);
+  font-weight: 800;
+  font-size: 0.85rem;
+  padding: 4px 12px;
+  border-radius: 999px;
+}
+
+/* ---------- Summary ---------- */
+.summary-wrap {
+  margin-top: 24px;
+  border-top: 1px solid var(--border);
+  padding-top: 20px;
+}
+
+.summary-label {
+  display: block;
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+.summary-box {
+  width: 100%;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  white-space: pre-wrap;
+}
+
+.summary-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.summary-actions .btn {
+  flex: 1 1 auto;
+}
+
+/* ---------- Toast ---------- */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  z-index: 200;
+  background: var(--text);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 12px 20px;
+  border-radius: 999px;
+  box-shadow: var(--shadow);
+  max-width: calc(100% - 32px);
+  text-align: center;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 480px) {
+  .field-row {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  /* Multi-button CTA rows: stack vertically with the primary action on
+     top. step-nav's DOM order is Previous (secondary) then Next/Generate
+     (primary), so it's reversed here rather than reordered in markup —
+     that keeps tab order as Previous-then-Next while still showing the
+     primary action first. summary-actions is already primary-first in
+     markup (Copy, then Download, then Clear), so it just stacks as-is. */
+  .step-nav {
+    flex-direction: column-reverse;
+  }
+
+  .step-nav .btn {
+    flex: none;
+    width: 100%;
+  }
+
+  .summary-actions {
+    flex-direction: column;
+  }
+
+  .summary-actions .btn {
+    flex: none;
+    width: 100%;
+  }
+}
+
+@media (min-width: 640px) {
+  .step-nav span {
+    flex: 1;
+  }
+}
